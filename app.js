@@ -1,7 +1,7 @@
 const express = require('express');
 const helmet = require('helmet');
-const router = require('./src/routes');
 
+const router = require('./src/routes/');
 const app = express();
 
 app.use(express.urlencoded({extended: false}));

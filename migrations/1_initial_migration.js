@@ -1,5 +1,5 @@
-const Migrations = artifacts.require("Migrations");
+const IProtect = artifacts.require('Iprotect');
 
 module.exports = function (deployer) {
-  deployer.deploy(Migrations);
+	deployer.deploy(IProtect);
 };
