@@ -1,7 +1,7 @@
 const express = require('express');
 const {v4: uuidv4} = require('uuid');
 const Common = require('@ethereumjs/common');
-const pkg = require('@ethereumjs/tx');
+const ethereumTransaction = require('@ethereumjs/tx');
 const log = require('ololog').configure({time: true});
 
 const config = require('../../config');
@@ -9,11 +9,11 @@ const instance = require('../../utils/ethFactory');
 const web3 = require('../../utils/web3');
 
 const router = express.Router();
-const {FeeMarketEIP1559Transaction} = pkg;
+const {FeeMarketEIP1559Transaction} = ethereumTransaction;
 const {Chain, Hardfork} = Common;
 const CommonDefault = Common.default;
 
-const MAX_GAS = 2000000;
+const MAX_GAS = 5000000;
 const MAX_GWEI = '20';
 
 router.post('/certificate', async (req, res) => {
@@ -44,9 +44,8 @@ router.post('/certificate', async (req, res) => {
 	const common = new CommonDefault({chain: Chain.Rinkeby, hardfork: Hardfork.London});
 
 	const ethTx = FeeMarketEIP1559Transaction.fromTxData(rawTx, {common});
-	ethTx.sign(privateKey);
 
-	const serializedTx = ethTx.serialize();
+	const serializedTx = ethTx.sign(privateKey).serialize().toString('hex');
 
 	web3.eth
 		.sendSignedTransaction(`0x${serializedTx.toString('hex')}`)
