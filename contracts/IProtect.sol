@@ -4,8 +4,8 @@ pragma solidity >=0.7.0 <0.9.0;
 contract IProtect {
     struct Certificate {
         string uuid;
-        string sha256;
         string docId;
+        string sha256;
     }
 
     address private creator;
@@ -41,6 +41,6 @@ contract IProtect {
             string memory,
             string memory) {
                 Certificate storage out = certificates[_uuid];
-                return (out.uuid, out.sha256, out.docId);
+                return (out.uuid, out.docId, out.sha256);
     }
 }

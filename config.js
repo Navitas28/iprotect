@@ -15,6 +15,7 @@ const config = {
 	networkAddress: process.env.NETWORK_ADDRESS,
 	etherscanToken: process.env.ETHERSCAN_TOKEN,
 	mnemonic: process.env.MNEMONIC,
+	databaseURI: `mongodb+srv://${process.env.MONGOOSE_URI_USERNAME}:${process.env.MONGOOSE_URI_PASSWORD}@${process.env.MONGO_URI}/${process.env.MONGOOSE_URI_DB}?retryWrites=true`,
 };
 
 module.exports = config;

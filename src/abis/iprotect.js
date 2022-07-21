@@ -1,20 +1,51 @@
 const iprotectABI = [
-	{inputs: [], stateMutability: 'nonpayable', type: 'constructor'},
+	{
+		inputs: [],
+		stateMutability: 'nonpayable',
+		type: 'constructor',
+	},
 	{
 		anonymous: false,
 		inputs: [
-			{indexed: false, internalType: 'string', name: '_uuid', type: 'string'},
-			{indexed: false, internalType: 'string', name: '_docId', type: 'string'},
-			{indexed: false, internalType: 'string', name: '_sha256', type: 'string'},
+			{
+				indexed: false,
+				internalType: 'string',
+				name: '_uuid',
+				type: 'string',
+			},
+			{
+				indexed: false,
+				internalType: 'string',
+				name: '_docId',
+				type: 'string',
+			},
+			{
+				indexed: false,
+				internalType: 'string',
+				name: '_sha256',
+				type: 'string',
+			},
 		],
 		name: 'NewCertificateIssue',
 		type: 'event',
 	},
 	{
 		inputs: [
-			{internalType: 'string', name: '_uuid', type: 'string'},
-			{internalType: 'string', name: '_docId', type: 'string'},
-			{internalType: 'string', name: '_sha256', type: 'string'},
+			{
+				internalType: 'string',
+				name: '_uuid',
+				type: 'string',
+			},
+			{
+				internalType: 'string',
+				name: '_docId',
+				type: 'string',
+			},
+			{
+				internalType: 'string',
+				name: '_sha256',
+				type: 'string',
+			},
 		],
 		name: 'issueCertificate',
 		outputs: [],
@@ -22,12 +53,30 @@ const iprotectABI = [
 		type: 'function',
 	},
 	{
-		inputs: [{internalType: 'string', name: '_uuid', type: 'string'}],
+		inputs: [
+			{
+				internalType: 'string',
+				name: '_uuid',
+				type: 'string',
+			},
+		],
 		name: 'getByUUID',
 		outputs: [
-			{internalType: 'string', name: '', type: 'string'},
-			{internalType: 'string', name: '', type: 'string'},
-			{internalType: 'string', name: '', type: 'string'},
+			{
+				internalType: 'string',
+				name: '',
+				type: 'string',
+			},
+			{
+				internalType: 'string',
+				name: '',
+				type: 'string',
+			},
+			{
+				internalType: 'string',
+				name: '',
+				type: 'string',
+			},
 		],
 		stateMutability: 'view',
 		type: 'function',
