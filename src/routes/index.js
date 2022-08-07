@@ -1,4 +1,6 @@
 const express = require('express');
+const multer = require('multer');
+const mime = require('mime-types');
 const {fromString: uuid} = require('uuidv4');
 const Common = require('@ethereumjs/common');
 const ethereumTransaction = require('@ethereumjs/tx');
@@ -10,11 +12,24 @@ const config = require('../../config');
 const instance = require('../../utils/ethFactory');
 const web3 = require('../../utils/web3');
 const Certificate = require('../models/certificate');
+const File = require('../models/file');
 
 const router = express.Router();
 const {FeeMarketEIP1559Transaction} = ethereumTransaction;
 const {Chain, Hardfork} = Common;
 const CommonDefault = Common.default;
+
+const storage = multer.diskStorage({
+	destination: (req, file, cb) => {
+		cb(null, 'uploads');
+	},
+	filename: (req, file, cb) => {
+		const nameWithoutExtension = file.originalname.split('.')[0];
+		const name = nameWithoutExtension.toLowerCase().split(' ').join('-');
+		const ext = mime.extension(file.mimetype);
+		cb(null, name + '-' + Date.now() + '.' + ext);
+	},
+});
 
 const MAX_GWEI = '200';
 
@@ -27,6 +42,7 @@ router.post('/certificate/new', async (req, res) => {
 			status: false,
 			message: 'This document already exists in the blockchain. Please try new one',
 		});
+		return;
 	}
 	const txInitiatedTimestamp = new Date();
 	const certificate = new Certificate({
@@ -107,7 +123,6 @@ router.post('/certificate/new', async (req, res) => {
 router.get('/certificate/:uuidHash', async (req, res) => {
 	try {
 		const existingCert = await Certificate.findOne({uuid: req.params.uuidHash});
-		console.log('🕵️‍♂️ 🥷🏻 : ==> file: index.js : ==> line 110 : ==> existingCert', existingCert);
 		if (!existingCert) {
 			res.status(400).json({
 				status: false,
@@ -127,6 +142,18 @@ router.get('/certificate/:uuidHash', async (req, res) => {
 		res.status(200).json(updateCertificate);
 	} catch (err) {
 		console.log(err.message);
+	}
+});
+
+router.get('/certificates/all', async (req, res) => {
+	try {
+		const certificates = await Certificate.find({});
+		res.json(certificates);
+	} catch (err) {
+		return res.json({
+			status: false,
+			msg: err.message,
+		});
 	}
 });
 
@@ -182,4 +209,20 @@ router.get('/internal/transaction/list', async (req, res) => {
 		console.log(err.message);
 	}
 });
+
+router.post('/upload', multer({storage: storage}).single('file'), async (req, res) => {
+	const file = new File({
+		fileName: req.file.filename,
+		originalName: req.file.originalname,
+		size: req.file.size,
+	});
+	await file.save();
+	res.json({message: 'Successfully uploaded files'});
+});
+
+router.get('/uploads', async (req, res) => {
+	const uploads = await File.find();
+	res.status(200).json(uploads);
+});
+
 module.exports = router;
