@@ -10,7 +10,12 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 export default function Details() {
-	const baseUrl = 'http://localhost:3000/api';
+	let baseUrl;
+	if (process.env.NODE_ENV === 'development') {
+		baseUrl = process.env.REACT_APP_DEV_URL;
+	} else {
+		baseUrl = process.env.REACT_APP_PROD_URL;
+	}
 	const [certificates, setCertificates] = useState([]);
 	useEffect(() => {
 		const getCertificatesData = async () => {
@@ -18,7 +23,7 @@ export default function Details() {
 			setCertificates(data);
 		};
 		getCertificatesData();
-	}, []);
+	}, [baseUrl]);
 	return (
 		<div className='container'>
 			<div className='header'>

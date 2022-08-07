@@ -14,7 +14,12 @@ import {Alert, Snackbar} from '@mui/material';
 import {Link} from 'react-router-dom';
 
 export default function Home(props) {
-	const baseUrl = 'http://localhost:3000/api';
+	let baseUrl;
+	if (process.env.NODE_ENV === 'development') {
+		baseUrl = process.env.REACT_APP_DEV_URL;
+	} else {
+		baseUrl = process.env.REACT_APP_PROD_URL;
+	}
 	const [allData, setAllData] = useState();
 	const [uploadedFile, setUploadedFile] = useState();
 	const [open, setOpen] = useState(false);
@@ -33,7 +38,7 @@ export default function Home(props) {
 			setAllData(data);
 		}
 		getFiles();
-	}, []);
+	}, [baseUrl]);
 	const fileRef = useRef(null);
 
 	const handleClick = (event) => {

@@ -2,6 +2,7 @@ const express = require('express');
 const helmet = require('helmet');
 
 const router = require('./src/routes/');
+const path = require('path');
 const app = express();
 
 app.use(express.urlencoded({extended: false}));
@@ -27,6 +28,7 @@ app.use((req, res, next) => {
 	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, PUT, DELETE, OPTIONS');
 	next();
 });
+app.use('/', express.static(path.join(__dirname, 'client/build')));
 
 app.use('/api', router);
 
