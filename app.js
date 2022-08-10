@@ -1,5 +1,6 @@
 const express = require('express');
 const helmet = require('helmet');
+const cors = require('cors');
 
 const router = require('./src/routes/');
 const path = require('path');
@@ -7,6 +8,7 @@ const app = express();
 
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
+app.use(cors());
 app.use(
 	helmet({
 		frameguard: {
