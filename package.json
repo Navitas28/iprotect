@@ -4,7 +4,7 @@
 	"description": "Blockchain timestamping",
 	"main": "index.js",
 	"scripts": {
-		"start": "nodemon -x \"clear && node\" index.js",
+		"start": "nodemon -x \"node\" index.js",
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"pm2-dev": "NODE_ENV=development pm2 start --name DEV ./index.js",
 		"pm2-prod": "NODE_ENV=production pm2 start --name PROD --node-args=\"--max-old-space-size=7186\" ./index.js",
