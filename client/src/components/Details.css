@@ -1,0 +1,19 @@
+.heading {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+.pdf__rows {
+	display: flex;
+	margin: 10px;
+	flex-direction: column;
+}
+
+.pdf__title {
+	font-size: 18px;
+	font-weight: 700;
+}
+
+.pdf__value {
+	font-size: 11px;
+}
