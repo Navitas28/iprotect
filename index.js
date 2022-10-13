@@ -27,12 +27,13 @@ const start = async () => {
 
 	const httpServer = http.createServer(app);
 	const httpsServer = https.createServer(credentials, app);
-	httpServer.listen(config.devPort, () => {
-		console.log('App Started in development on port', config.devPort);
-	});
 	if (process.env.NODE_ENV === 'production') {
 		httpsServer.listen(config.port, () => {
 			console.log('App Started in production on port', config.port);
+		});
+	} else {
+		httpServer.listen(config.devPort, () => {
+			console.log('App Started in development on port', config.devPort);
 		});
 	}
 };
