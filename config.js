@@ -7,7 +7,8 @@ if (envFound.error) {
 }
 
 const config = {
-	port: process.env.PORT,
+	devPort: process.env.DEV_PORT,
+	port: process.env.PROD_PORT,
 	walletAddress: process.env.WALLET_ADDRESS,
 	walletPrivateKey: process.env.WALLET_PRIVATE_KEY,
 	contractAddress: process.env.CONTRACT_ADDRESS,
