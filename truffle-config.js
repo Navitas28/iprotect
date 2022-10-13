@@ -39,14 +39,14 @@ module.exports = {
 			port: 8545,
 			network_id: '*',
 		},
-		rinkeby: {
+		goerli: {
 			provider: function () {
 				return new HDWalletProvider(
 					config.mnemonic,
-					`https://rinkeby.infura.io/v3/${config.infuraToken}`,
+					`https://goerli.infura.io/v3/${config.infuraToken}`,
 				);
 			},
-			network_id: 4,
+			network_id: 5,
 			gas: 4500000,
 			gasPrice: 10000000000,
 		},

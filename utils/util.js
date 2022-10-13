@@ -11,8 +11,8 @@ const ansi = require('ansicolor').nice;
  */
 const testmode = true;
 
-const mainnet = `https://mainnet.infura.io/${config.infuraToken}`;
-const testnet = `https://rinkeby.infura.io/v3/${config.infuraToken}`;
+const mainnet = `https://goerli.infura.io/${config.infuraToken}`;
+const testnet = `https://goerli.infura.io/v3/${config.infuraToken}`;
 
 /**
  * Change the provider that is passed to HttpProvider to `mainnet` for live transactions.
