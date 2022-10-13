@@ -49,7 +49,6 @@ router.post('/certificate/new', async (req, res) => {
 		uuid: uuidHash,
 		txInitiatedTimestamp: txInitiatedTimestamp,
 	});
-	// await certificate.save();
 	const data = instance.methods
 		.issueCertificate(uuidHash, certificate._id.toString(), req.body.hash)
 		.encodeABI();
@@ -107,7 +106,8 @@ router.post('/certificate/new', async (req, res) => {
 		.on('error', (error) => {
 			log('err:' + error.message);
 		})
-		.then((receipt) => {
+		.then(async (receipt) => {
+			await certificate.save();
 			// Will be fired once the receipt is mined
 			log(`${receipt.transactionHash} is mined`);
 			log(
@@ -183,7 +183,7 @@ router.get('/internal/certificate/:uuidHash', async (req, res) => {
 router.get('/internal/transaction/list', async (req, res) => {
 	try {
 		const apiUrl =
-			'https://api-rinkeby.etherscan.io/api?module=account&action=txlist&address=' +
+			'https://api-goerli.etherscan.io/api?module=account&action=txlist&address=' +
 			config.walletAddress +
 			'&startblock=0&endblock=99999999&sort=asc&apikey=' +
 			config.etherscanToken;
