@@ -7,8 +7,8 @@ const fs = require('fs');
 
 let credentials;
 if (process.env.NODE_ENV === 'production') {
-	const privateKey = fs.readFileSync('~/private.key', 'utf8');
-	const certificate = fs.readFileSync('~/certificate.crt', 'utf8');
+	const privateKey = fs.readFileSync('../../private.key', 'utf8');
+	const certificate = fs.readFileSync('../../certificate.crt', 'utf8');
 	credentials = {key: privateKey, cert: certificate};
 }
 
