@@ -49,6 +49,7 @@ router.post('/certificate/new', async (req, res) => {
 		uuid: uuidHash,
 		txInitiatedTimestamp: txInitiatedTimestamp,
 	});
+	await certificate.save();
 	const data = instance.methods
 		.issueCertificate(uuidHash, certificate._id.toString(), req.body.hash)
 		.encodeABI();
@@ -107,7 +108,9 @@ router.post('/certificate/new', async (req, res) => {
 			log('err:' + error.message);
 		})
 		.then(async (receipt) => {
-			await certificate.save();
+			await Certificate.findByIdAndUpdate(certificate._id, {
+				txHash: receipt.transactionHash,
+			});
 			// Will be fired once the receipt is mined
 			log(`${receipt.transactionHash} is mined`);
 			log(
